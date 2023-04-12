@@ -1,19 +1,28 @@
 import { Inter } from "next/font/google";
-import { flags } from "@/lib/flags";
 import Card from "@/components/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { changeMode, newGame } from "@/store/gameSlice";
+import { useEffect } from "react";
+import Main from "./Main";
+import Side from "./Side";
+import NewGameModal from "@/components/NewGameModal";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { cards, point, mode } = useSelector((state) => state.game);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(newGame(mode));
+  }, []);
+
+  const isFinish = cards.every((card) => card.matched === true);
   return (
-    <main className="bg-zinc-100 dark:bg-zinc-800">
+    <main className={`bg-zinc-100 dark:bg-zinc-800 ${inter.className}`}>
       <div className="container mx-auto grid grid-cols-6 gap-4">
-        <div className="grid col-span-4 grid-cols-4 grid-rows-4 gap-5 h-screen  py-4">
-         
-        </div>
-        <div className="col-span-2 gap-5 h-screen py-4">
-        
-        </div>
+        <Main />
+        <Side />
       </div>
+      {isFinish && <NewGameModal />}
     </main>
   );
 }

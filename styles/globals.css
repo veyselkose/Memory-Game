@@ -2,7 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .rotate-y-180 {
   transform: rotateY(180deg);
+}
+
+.main {
+  @apply grid col-span-6 lg:col-span-4 grid-cols-4 grid-rows-4 gap-5 my-4 p-4 rounded-lg bg-white;
+  perspective: 1000px;
+}
+.main.easy {
+  @apply grid-cols-2 grid-rows-4;
+}
+.main.medium {
+  @apply grid-cols-4 grid-rows-4;
+}
+.main.hard {
+  @apply grid-cols-6 grid-rows-4;
+}
+@media screen and (max-width: 768px) {
+  .main.hard {
+    @apply grid-cols-4 grid-rows-4;
+  }
+}
+.side {
+  @apply col-span-6 lg:col-span-2 gap-5 h-screen py-4;
+}
+.card {
+  @apply relative transition duration-500 shadow-lg min-h-[100px] md:min-h-[155px];
+  transform-style: preserve-3d;
+}
+.matched {
+  @apply ring-4 ring-green-500 opacity-50;
+}
+.card-front {
+  @apply w-full h-full bg-zinc-300 rounded flex justify-center items-center text-8xl text-zinc-400 absolute ring-4 ring-zinc-400;
+  backface-visibility: hidden;
+}
+.card-back {
+  @apply w-full object-cover rounded h-full absolute rotate-y-180;
+  backface-visibility: hidden;
+}
+.modal {
+  @apply fixed left-0 top-0 right-0 bottom-0 bg-zinc-800/50 backdrop-blur-sm flex justify-center items-center z-50;
+}
+
+.btn {
+  @apply py-2 px-4 transition-all bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75;
 }
